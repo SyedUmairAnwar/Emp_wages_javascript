@@ -1,0 +1,1 @@
+console.log("Welcome To Emp wages program")
