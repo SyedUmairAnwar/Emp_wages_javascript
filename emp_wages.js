@@ -9,12 +9,14 @@ const MAX_OF_WORKING_DAYS = 20
 let total_empHrs = 0
 let total_working_days = 0
 let daily_wage_arr = new Array()
+let daily_wage_map= new Map()
 while (total_empHrs <= MAX_HRS_IN_MONTH && total_working_days < NUM_OF_WORKING_DAYS) {
     let empCheck = Math.floor(Math.random() * 10) % 3
     let empHrs = getWorkingHours(empCheck)
     total_empHrs += empHrs
     total_working_days++
     daily_wage_arr.push(cal_daily_wages(empHrs))
+    daily_wage_map.set(total_working_days,cal_daily_wages(empHrs))
 }
 function cal_daily_wages(emphrs) {
     return emphrs * WAGE_PER_HOUR
@@ -31,6 +33,7 @@ function getWorkingHours(empCheck) {
 let emp_wage = cal_daily_wages(total_empHrs)
 console.log("Total days is ", total_working_days, "Total hours ", total_empHrs, "total emp wage ", emp_wage)
 console.log(daily_wage_arr.toString())
+console.log(daily_wage_map)
 //for each
 /**var fruits = ["apple", "orange", "cherry"];
 fruits.forEach((item ,index)=>{console.log(item,index)});**/
