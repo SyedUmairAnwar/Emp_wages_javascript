@@ -9,14 +9,16 @@ const MAX_OF_WORKING_DAYS = 20
 let total_empHrs = 0
 let total_working_days = 0
 let daily_wage_arr = new Array()
-let daily_wage_map= new Map()
+let daily_wage_map = new Map()
+let daily_wage_hrs_map=new Map()
 while (total_empHrs <= MAX_HRS_IN_MONTH && total_working_days < NUM_OF_WORKING_DAYS) {
     let empCheck = Math.floor(Math.random() * 10) % 3
     let empHrs = getWorkingHours(empCheck)
     total_empHrs += empHrs
     total_working_days++
     daily_wage_arr.push(cal_daily_wages(empHrs))
-    daily_wage_map.set(total_working_days,cal_daily_wages(empHrs))
+    daily_wage_map.set(total_working_days, cal_daily_wages(empHrs))
+    daily_wage_hrs_map.set(total_working_days,empHrs)
 }
 function cal_daily_wages(emphrs) {
     return emphrs * WAGE_PER_HOUR
@@ -48,7 +50,7 @@ console.log("Total days ", total_working_days, "Total emp wages ", tot_emp_wage)
 let day_count = 0
 function map_day_with_wages(daily_wage) {
     day_count++
-    return day_count + "=" + daily_wage
+    return day_count + "=" + daily_wage //why we concate this one
 }
 let map_day_with_wages_arr = daily_wage_arr.map(map_day_with_wages)
 console.log(map_day_with_wages_arr)
@@ -63,13 +65,33 @@ console.log(map_day_with_wages_arr.find(full_time))
 //check every element is truly holding full time wage
 console.log(full_day_arr.every(full_time))
 //check any part time wage
-function part_time(daily_wage){
-   return daily_wage.includes("80")
+function part_time(daily_wage) {
+    return daily_wage.includes("80")
 }
 console.log(map_day_with_wages_arr.some(part_time))
 //find total no of working days
-function total_working_days_func(no_of_days,daily_wage){
-    if(daily_wage>0){no_of_days++}
+function total_working_days_func(no_of_days, value) {
+    if (value > 0) { no_of_days++ }
     return no_of_days
 }
-console.log(daily_wage_arr.reduce(total_working_days_func,0))
+console.log(daily_wage_arr.reduce(total_working_days_func, 0))
+
+//uc9 arrow function
+const find_total=(total_val,daily_val)=>{
+    return total_val +=daily_val
+}
+let count=0
+let total_hrs=Array.from(daily_wage_hrs_map.values()).reduce(find_total,0);
+let total_salary=daily_wage_arr.filter(daily_wage =>daily_wage>0).reduce(find_total,0)
+console.log("UC9 emp wage with array :"+"Total hrs: "+total_hrs+"Total wages "+total_salary)
+let non_working_days=new Array()
+let part_working_days=new Array()
+let full_working_days=new Array()
+daily_wage_hrs_map.forEach((value,key,map)=>{
+    if(value==8)full_working_days.push(key)
+    else if (value==4)part_working_days.push(key)
+    else non_working_days.push(key)
+})
+console.log("Full working days "+full_working_days)
+console.log("Part working days "+part_working_days)
+console.log("non working days "+non_working_days)
