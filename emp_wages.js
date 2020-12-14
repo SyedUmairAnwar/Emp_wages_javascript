@@ -11,6 +11,7 @@ let total_working_days = 0
 let daily_wage_arr = new Array()
 let daily_wage_map = new Map()
 let daily_wage_hrs_map=new Map()
+let daily_hrs_wage_arr=new Array()//for uc 10 to create the object
 while (total_empHrs <= MAX_HRS_IN_MONTH && total_working_days < NUM_OF_WORKING_DAYS) {
     let empCheck = Math.floor(Math.random() * 10) % 3
     let empHrs = getWorkingHours(empCheck)
@@ -19,7 +20,19 @@ while (total_empHrs <= MAX_HRS_IN_MONTH && total_working_days < NUM_OF_WORKING_D
     daily_wage_arr.push(cal_daily_wages(empHrs))
     daily_wage_map.set(total_working_days, cal_daily_wages(empHrs))
     daily_wage_hrs_map.set(total_working_days,empHrs)
+    //pushing the data in the array object
+    daily_hrs_wage_arr.push({
+        day_num:total_working_days,
+        day_hour:empCheck,
+        day_wage:cal_daily_wages(empHrs),
+        toString(){
+                return "\nDay "+this.day_num +" ==>Working hour is "+this.day_hour+" and wage earned "+this.day_wage
+        },
+        
+
+    })
 }
+console.log("Uc 10 showing daily hours worked and wage earned: "+daily_hrs_wage_arr)
 function cal_daily_wages(emphrs) {
     return emphrs * WAGE_PER_HOUR
 }
@@ -95,3 +108,5 @@ daily_wage_hrs_map.forEach((value,key,map)=>{
 console.log("Full working days "+full_working_days)
 console.log("Part working days "+part_working_days)
 console.log("non working days "+non_working_days)
+
+
