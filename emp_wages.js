@@ -108,5 +108,29 @@ daily_wage_hrs_map.forEach((value,key,map)=>{
 console.log("Full working days "+full_working_days)
 console.log("Part working days "+part_working_days)
 console.log("non working days "+non_working_days)
-
+//uc11 creating employee pay rool class
+class EmployeePayrollData{
+    //property
+    id;
+    salary;
+    //constructor
+    constructor(id,name,salary){
+        this.id=id
+        this.name=name
+        this.salary=salary
+    }
+    //setter and getter method
+    set name(name){
+        this._name=name
+    }
+    get name(){return this._name}
+    //method
+    toString(){
+        return "Id: "+this.id+", name: "+this.name+", salary= "+this.salary
+    }
+}
+let emp_payroll_data=new EmployeePayrollData(1,"syed",50000)
+console.log(emp_payroll_data.toString())
+emp_payroll_data.name="anwar"
+console.log(emp_payroll_data.toString())
 
