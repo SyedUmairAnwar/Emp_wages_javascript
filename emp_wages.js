@@ -125,7 +125,10 @@ class EmployeePayrollData{
     }
     //setter and getter method
     set name(name){
-        this._name=name
+        let name_regix=RegExp('^[A-Z]{1}[a-z]{2,}$')
+        if(name_regix.test(name)){
+        this._name=name}
+        else throw "name is in correct"
     }
     get name(){return this._name}
     //method
@@ -135,10 +138,13 @@ class EmployeePayrollData{
         return "Id: "+this.id+", name: "+this.name+", salary= "+this.salary+","+"gender="+this.gender+", start date="+this.empDate
     }
 }
-let emp_payroll_data=new EmployeePayrollData(1,"syed",50000)
+try{
+let emp_payroll_data=new EmployeePayrollData(1,"Syed",50000)
 console.log(emp_payroll_data.toString())
-emp_payroll_data.name="anwar"
+emp_payroll_data.name="Anwar"
 console.log(emp_payroll_data.toString())
 let emp_payroll_data2=new EmployeePayrollData(1,"umair",300000,"M",new Date())
 console.log(emp_payroll_data2.toString())
-
+}catch(e){
+    console.error(e)
+}
