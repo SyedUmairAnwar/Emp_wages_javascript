@@ -113,11 +113,15 @@ class EmployeePayrollData{
     //property
     id;
     salary;
+    gender;
+    start_date
     //constructor
-    constructor(id,name,salary){
-        this.id=id
-        this.name=name
-        this.salary=salary
+    constructor(...param){
+        this.id=param[0]
+        this.name=param[1]
+        this.salary=param[2]
+        this.gender=param[3]
+        this.start_date=param[4]
     }
     //setter and getter method
     set name(name){
@@ -125,12 +129,16 @@ class EmployeePayrollData{
     }
     get name(){return this._name}
     //method
-    toString(){
-        return "Id: "+this.id+", name: "+this.name+", salary= "+this.salary
+    toString(){ 
+        const option={year:'numeric',month:'long',day:'numeric'}
+        const empDate=this.start_date===undefined ?"undefined":this.start_date.toLocaleDateString("en-us",option)
+        return "Id: "+this.id+", name: "+this.name+", salary= "+this.salary+","+"gender="+this.gender+", start date="+this.empDate
     }
 }
 let emp_payroll_data=new EmployeePayrollData(1,"syed",50000)
 console.log(emp_payroll_data.toString())
 emp_payroll_data.name="anwar"
 console.log(emp_payroll_data.toString())
+let emp_payroll_data2=new EmployeePayrollData(1,"umair",300000,"M",new Date())
+console.log(emp_payroll_data2.toString())
 
